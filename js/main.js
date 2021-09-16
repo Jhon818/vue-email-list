@@ -1,30 +1,20 @@
 Vue.config.devtools = true;
 
 const app = new Vue ({
-    el: "#root",
+    el: "#app",
     data: {
         list: [],
     },
-    methods: {
-        randomEmail() {
-            //    generare 10 email 
-            for (let index = 0; index < 10; index++) {
-                    let obj = JSON.parse('{ "success":true,"response":"becker.aleen@conroy.com" }')
-                    // console.log(obj)
-                    this.list.push(obj);
-                  
-            }
-            console.log(this.list)
-        }
-
-
-    },
-
     mounted() {
-        axios.get("https://flynn.boolean.careers/exercises/api/random/mail")
+        // ciclare l'API in (axios.get()) per generare email sempre differenti utilizzando un for, e pushando in lista il tutto
+        for (let index = 0; index < 10; index++) {
+            axios.get("https://flynn.boolean.careers/exercises/api/random/mail") //fake Api che mi permette di ricevere un'email randomica
         .then((response) => {
-           result = response.data;
-           console.log(this.randomEmail());
+           result = response.data.response;    //  riprendo il response nell'email 
+           this.list.push(result);
+           console.log(result);
         });
+        }
+        
     }
 });
